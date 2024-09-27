@@ -34,46 +34,36 @@ export enum FormFieldType {
 }
 
 const Staff  = [
+
     {
-      image: "/assets/images/dr-green.png",
-      name: "John Green",
-    },
-    {
-      image: "/assets/images/dr-cameron.png",
+      image: "/assets/images/",
       name: "Leila Cameron",
     },
     {
-      image: "/assets/images/dr-livingston.png",
-      name: "David Livingston",
-    },
-    {
-      image: "/assets/images/dr-peter.png",
+      image: "/assets/images/",
       name: "Evan Peter",
     },
     {
-      image: "/assets/images/dr-powell.png",
+      image: "/assets/images/",
       name: "Jane Powell",
     },
     {
-      image: "/assets/images/dr-remirez.png",
+      image: "/assets/images/",
       name: "Alex Ramirez",
     },
     {
-      image: "/assets/images/dr-lee.png",
+      image: "/assets/images/",
       name: "Jasmine Lee",
     },
     {
-      image: "/assets/images/dr-cruz.png",
+      image: "/assets/images/",
       name: "Alyana Cruz",
     },
-    {
-      image: "/assets/images/dr-sharma.png",
-      name: "Hardik Sharma",
-    },
+
   ];
 
 
-const  PatientForm = () => {
+const  AppointmentForm= () => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
@@ -125,27 +115,18 @@ const  PatientForm = () => {
             name="phone"
             label="Phone Number"
             placeholder= "(587) 123-4567"
-            iconSrc="/assets/icons/email.svg"
-            iconAlt="email"
         />
 
         <CustomFormField
               fieldType={FormFieldType.SELECT}
               control={form.control}
-              name="primaryPhysician"
-              label="Doctor"
-              placeholder="Select a doctor"
+              name="nailStylist"
+              label="Nail stylist"
+              placeholder="Select a nail stylist"
             >
               {Staff.map((staff, i) => (
                 <SelectItem key={staff.name + i} value={staff.name}>
                   <div className="flex cursor-pointer items-center gap-2">
-                    <Image
-                      src={staff.image}
-                      width={32}
-                      height={32}
-                      alt="staff"
-                      className="rounded-full border border-dark-500"
-                    />
                     <p>{staff.name}</p>
                   </div>
                 </SelectItem>
@@ -157,4 +138,4 @@ const  PatientForm = () => {
   )
 }
 
-export default PatientForm
+export default AppointmentForm
