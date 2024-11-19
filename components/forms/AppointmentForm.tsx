@@ -17,6 +17,8 @@ import PatientForm from "@/components/forms/patient-form"; // Component for the 
 import { availabilitySchema, ClientFormValidation } from "@/lib/validation"; // Zod schemas for validating the availability and patient forms
 import { yearMonthFormat } from "@/lib/utils"; // Utility function for formatting dates
 import { useRouter } from "next/navigation"; // Next.js router for navigating between pages
+import {useAddDealContext} from "@/components/addDealContext"
+
 
 export default function AppointmentForm() {
   // State for holding available staff, error messages, and the selected staff member
@@ -109,6 +111,7 @@ export default function AppointmentForm() {
   };
 
   const time = availabilityForm.watch("time"); // Watch the time field in the availability form
+
 
   return (
     <div>

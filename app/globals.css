@@ -169,6 +169,11 @@ body {
   border-radius: 2px !important;
 
 }
+
+
+
+
+
 @layer base {
   :root {
     --radius: 0.5rem;
@@ -197,3 +202,4 @@ tabel{
   border: 1px solid #9c9c9c;
   margin-top: 20px;
 }
+

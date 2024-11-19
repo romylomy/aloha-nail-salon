@@ -44,7 +44,7 @@ function AppointmentConfirmation() {
 
   return (
     <div className="p-5">
-      <div className="justify-center flex">
+      <div className="justify-center flex ">
         <PageTitle title="Appointment Confirmation" />
       </div>
       {loading ? (

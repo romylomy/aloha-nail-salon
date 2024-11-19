@@ -9,7 +9,8 @@ import { usePathname } from 'next/navigation';
 import path from 'path';
 import { useEffect, useState } from 'react';
 import { AddDealRoutes } from '@/constants/index';
-
+import { IoIosArrowBack } from "react-icons/io";
+import {LeftOutlined} from '@ant-design/icons'
 const steps = [
   {
     title: 'Step One',
@@ -39,13 +40,17 @@ export default function StepNavigation() {
   }, [currentPath]);
 
   return (
-    <div className="mb-12 mt-4 lg:mb-0 min-w-60">
+    <div className="lg:mb-12 mt-4 pl-10  min-w-60">
       {/* back button */}
-      <Link
+          <Link
         href={steps[currentStep - 1]?.link || steps[0].link}
-        className="mb-4 flex items-center gap-2 text-xl disabled:text-gray-400 lg:mb-12 lg:gap-5"
+        className={clsx(
+          'mb-4 flex items-center gap-2 rounded-lg px-4 py-2 text-xl transition-colors lg:mb-12 lg:gap-2',
+          'bg-gray-100 hover:bg-gray-200 text-gray-600'
+        )}
       >
-        Back
+        <LeftOutlined />
+        <span>Back</span>
       </Link>
 
       {/* list of form steps */}
@@ -59,13 +64,13 @@ export default function StepNavigation() {
           >
             <span
               className={clsx(
-                'flex h-10 w-10 items-center justify-center rounded-full border text-sm transition-colors duration-200 lg:h-12 lg:w-12 lg:text-lg',
+                'flex h-10 w-10 items-center justify-center rounded-full shadow-md shadow-slate-300 border text-sm transition-colors duration-200 lg:h-12 lg:w-12 lg:text-lg',
                 {
                   // Active step: teal background and black text
-                  'border-none bg-teal-500 text-white group-hover:border-none group-hover:text-white':
+                  ' bg-yellow-500 text-gray-700 border-gray-700 ':
                     currentPath === step.route,
                   // Inactive step: light gray background and black text
-                  'border-gray-300 bg-white group-hover:border-gray-400 group-hover:text-gray-600 text-gray-500':
+                  'border-gray-300 bg-white group-hover:border-4 group-hover:border-gray-700 group-hover:text-yellow-600 text-gray-500':
                     currentPath !== step.route,
                 }
               )}
@@ -74,7 +79,7 @@ export default function StepNavigation() {
             </span>
             <span
               className={clsx(
-                'hidden text-gray-500 transition-colors duration-200 group-hover:text-gray-600 lg:block',
+                'hidden text-gray-500 transition-colors duration-200 group-hover:font-semibold group-hover:text-gray-600 lg:block',
                 {
                   'font-light': currentPath !== step.route, // Light font for inactive steps
                   'font-semibold text-black': currentPath === step.route, // Bold font for active step

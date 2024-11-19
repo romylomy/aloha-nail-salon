@@ -20,6 +20,12 @@ export const UserFormValidation = z.object({
     .max(500, "Add more description")
 });
 
+
+// Zod schema definition for the availability form
+export const selectServicesSchema = z.object({
+  services: z.array(z.string()).nonempty("Please select at least one service."),
+});
+
 export const ClientFormValidation = z.object({
   customerName: z
       .string()
@@ -33,29 +39,42 @@ export const ClientFormValidation = z.object({
 
 
 
-export const availabilitySchema = z.object({
-  services: z.array(z.string()).nonempty("Please select at least one item"),
-  staff: z.string().optional(), // Staff is optional at first, will be set later
-  time: z.string(),
-  date: z.coerce.date(),
+
+
+  export const availabilitySchema = z.object({
+    time: z.string().min(1, "Time is required"), // Ensure time is required and not empty
+    date: z.coerce.date().refine((date) => !isNaN(date.getTime()), "Date is required"), // Ensure a valid date is selected
+  });
+  
+
+
+// Define the main schema for a "new deal" by combining existing schemas
+export const newDealSchema = z.object({
+  // Spread operator combines validation rules from two schemas:
+  // `availabilitySchema` (e.g., related to service availability)
+  // `ClientFormValidation` (e.g., related to client details)
+  staff: z.string().min(1, "Select a staff"),
+  ...selectServicesSchema.shape,
+  ...availabilitySchema.shape,
+  ...ClientFormValidation.shape,
 });
 
-
+// Update the schema for initial values if needed
 export const newDealInitialValuesSchema = z.object({
-  services: z.string.opitional(),
-  name: z.string.opitional(),
-  staff: z.string.opitional(),
-  time: z.string.opitional(),
-  date: z.string.opitional(),
-  customerName: z.string.opitional(),
-  email: z.string.opitional(),
-  phone: z.string.opitional(),
-})
+  services: z.array(z.string()).optional(), // Align schema with the type
+  time: z.string().optional(),
+  date: z.string().optional(),
+  staff: z.string().optional(),
+  customerName: z.string().optional(),
+  phone: z.string().optional(),
+  email: z.string().optional(),
+});
 
+// Use Zod's `infer` method to create TypeScript types from the schemas
+// These types help ensure form data matches the schemas at compile time
 
-export const newDealSchema = z.object({
-  ...availabilitySchema.shape,
-  ...ClientFormValidation.shape
-})
+// Type for the "new deal" form's validated data
+export type NewDealType = z.infer<typeof newDealSchema>;
 
-export type NewDeal = z.infer(typeof newDealSchema )
+// Type for the "new deal" form's initial values
+export type NewDealInitialValuesType = z.infer<typeof newDealInitialValuesSchema>;

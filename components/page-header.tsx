@@ -9,13 +9,15 @@ export default function PageHeader({
 }) {
   return (
     <>
-      <h1 className="text-slate-500 mb-4 text-4xl font-semibold  md:text-7xl">
+      <h1 className="text-slate-700 mb-4 text-lg lg:text-4xl font-semibold md:text-3xl">
         {title}
       </h1>
       {subtitle && (
-        <span className="text-slate-500 text-sm font-light  md:text-2xl">
-          {subtitle}
-        </span>
+        <div className="text-slate-500 text-xs p-2 bg-red-50  flex justify-center font-light md:text-xl">
+          <div className="break-words lg:w-1/2 whitespace-normal">
+            {subtitle}
+          </div>
+        </div>
       )}
     </>
   );

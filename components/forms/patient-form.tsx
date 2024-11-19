@@ -21,10 +21,10 @@ const PatientForm: React.FC<PatientFormProps> = ({ form }) => {
   // Defining the PatientForm component using React's functional component syntax and typing props with React.FC.
 
   return (
-    <Form {...form}>
+    <Form  {...form}>
       {/* Rendering the form component, passing all form properties as props using the spread operator */}
       
-      <form className="flex-1 space-y-6" onSubmit={form.handleSubmit((data) => console.log(data))}>
+      <form className="flex-1 space-y-6 " onSubmit={form.handleSubmit((data) => console.log(data))}>
         {/* Form element that handles the form submission and logs the form data on submit. */}
         
         <CustomFormField

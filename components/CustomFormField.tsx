@@ -131,7 +131,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
       return (
         
         <div className="flex items-center">
-          <div className="flex  text-sm border border-gray-300 rounded-md ">
+          <div className="flex  text-sm rounded-md ">
           <FormControl >
           
           {/* Validation supports phone  numbers for canadian number 
@@ -141,7 +141,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
             placeholder={placeholder}
             value={field.value as E164Number | undefined}
             onChange={field.onChange}
-            className='mt-2 h-11 rounded-md px-3 text-sm border bg-dark-400 placeholder:text-dark-600 border-dark-500'
+            className='mt-2 h-11 border-2 border-dark-500  rounded-md px-3 text-sm  bg-dark-400 placeholder:text-dark-600 '
            
            
           />
