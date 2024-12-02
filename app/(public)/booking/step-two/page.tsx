@@ -116,7 +116,7 @@ export default function Home() {
   };
 
   return (
-    <div className="text-lg flex flex-col min-h-screen px-4 mt-6">
+    <div className="text-lg flex flex-col items-center justify-start min-h-screen px-4 mt-6">
       <div className="w-full max-w-3xl">
         <SelectedDetails />
 

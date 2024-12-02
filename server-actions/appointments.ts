@@ -8,6 +8,30 @@ import { format } from "date-fns";  // Import the date-fns library to handle dat
 import CustomerModel from "@/models/customer-model";  // Import the Customer model
 import { IClient } from "@/interfaces/index";  // Import the IClient interface for type-checking client data
 import { revalidatePath } from "next/cache";  
+
+
+
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID 
+const authToken=process.env.TWILIO_AUTH_TOKEN
+
+const client = require('twilio')(accountSid, authToken); // For Twilio's Node.js library
+
+const sendSMS = async ({ content }: { content: string }) => {
+  const msgOptions = {
+    from: process.env.TWILIO_FROM_NUMBER,
+    to: process.env.TO_NUMBER,
+    body: content, // Corrected key from `content` to `body` (Twilio expects `body`)
+  };
+
+  try {
+    const message = await client.messages.create(msgOptions); // Corrected `messsage` typo
+    console.log(message);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // Import revalidation function for Next.js cache handling  trigger a revalidation of a particular route or page, which helps ensure that the page content stays fresh by re-fetching data from the server
 
 // Function to check staff availability based on the date and time of appointment
@@ -62,12 +86,16 @@ export const saveAppointment = async ({
     time,
     staffId,
     services,
+    fee,
+    StaffName
 }: {
     clientDetails: Partial<IClient>;  // Client details, may be partial
     date: string;  // Date of appointment
     time: string;  // Time of appointment
     staffId: string;  // Staff ID for the appointment
-    services: string[];  // Services for the appointment, as an array of strings
+    services: string[];  
+    fee: number,
+    StaffName: string// Services for the appointment, as an array of strings
 }) => {
     try {
         console.log("Starting saveAppointment...");
@@ -95,8 +123,26 @@ export const saveAppointment = async ({
             staff: staffId,  // Staff assigned to the appointment
             customer: client._id,  // Link the customer by their ID
             services: services,  // List of services for the appointment
-            status: "approved",  // Set the initial appointment status to "approved"
+            status: "approved",
+            fee: fee  // Set the initial appointment status to "approved"
         });
+
+        const schedDate = format( Date(appointment.date), 'PPP')
+
+                
+        sendSMS({content:`Aloha ${client.name},
+
+                  Your appointment at Aloha Nail Salon is confirmed! Here are your appointment details:
+
+                            
+                - **Date**: ${schedDate} at ${time}
+                - **Nail Stylist**: ${StaffName}
+                    
+                We look forward to seeing you! If you need to reschedule or have any questions, feel free to call us at 587-973-6068
+                http://localhost:3000/appointment-confirmation?id=${appointment._id}
+ 
+                  `})
+
 
         console.log("Appointment created:", appointment);  // Log the created appointment details
         return { success: true, data: JSON.parse(JSON.stringify(appointment)) };  // Return success with appointment data

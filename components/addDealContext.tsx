@@ -25,6 +25,9 @@ const defaultDeal: NewDealInitialValuesType = {
   phone: '',
   name: '',
   staff: '',
+  taxes:'',
+  subtotal:'', 
+  cost:'',
 };
 
 // Key used to store and retrieve data in local storage.

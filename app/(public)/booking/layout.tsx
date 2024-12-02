@@ -9,17 +9,12 @@ export default function DealsLayout({
   children: React.ReactNode;
 }) {
   return (
+    
     <div className="w-full px-4 lg:px-0">
       {/* Centering the PageHeader */}
-      <div className="flex p-4 justify-evenly pt-10 mt-10 lg:mt-20">
-        <div className="text-center text-slate-200">
-          <PageHeader
-            title="Aloha! Let's book you an appointment"
-          />
-        </div>
-      </div>
+      
 
-      <div className=" lg:mt-20 mt-10 mb-28 p-4 rounded-md flex flex-col items-center text-black lg:flex-row lg:justify-center lg:items-start lg:gap-x-10 lg:max-w-5xl lg:mx-auto">
+      <div className=" mb-28 p-4 rounded-md flex flex-col items-center justify-center text-black mx-auto">
         {/* Step Navigation */}
         <StepNavigation  />
 

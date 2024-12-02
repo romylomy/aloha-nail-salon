@@ -1,94 +1,103 @@
 "use client"
-import Link from 'next/link';
-import React, { useState } from 'react';
+import { cn } from "@/lib/utils"
+import { BookOpen, MenuIcon } from 'lucide-react'
+import Link from "next/link"
+import * as React from "react"
+import { Dialog, DialogClose } from "./ui/dialog"
+import { Button } from "./ui/button"
+import { NavigationMenu, NavigationMenuLink, NavigationMenuList } from "./ui/navigation-menu"
+// import ModeToggle from "../mode-toggle"
+import { SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet"
 
-export default function Navbar(){
 
-    const [isOpen, setIsOpen] = useState(false); // Menu is initially closed
+export default function NavBar() {
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);  // Toggle the menu open/closed
-    };
-    
-    return(
-        
-        <div className='fixed flex py-4 px-6 z-50 shadow-md items-center justify-between w-full ' style={{ backgroundColor: "#F7E7CE" }}>
-            <div>
-                <h1 className='text-2xl text-yellow-800 font-bold'> ALOHA NAILS SALON</h1>
-            </div>
-            <div className='hidden md:flex space-x-6'>
-                <button>
-                    <Link href={"/"}>
-                        <p className='text-xl text-yellow-800 hover:scale-110'>Home</p>
+    return (
+        <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
+            <div className="flex justify-end md:w-[1550px] w-full border dark:border-zinc-900 dark:bg-black relative backdrop-filter backdrop-blur-lg  border-black border-opacity-20 rounded-xl p-2 ">
+                <Dialog>
+                    <SheetTrigger className="min-[825px]:hidden p-2 transition">
+                        <MenuIcon />
+                    </SheetTrigger>
+                    <SheetContent side="left">
+                        <SheetHeader>
+                            <SheetTitle>fabrika.</SheetTitle>
+                            <SheetDescription>
+                                Scale and launch products with expert developers, on-demand, at a flat monthly fee
+                            </SheetDescription>
+                        </SheetHeader>
+                        <div className="flex flex-col space-y-3 mt-[1rem] z-[99]">
+                            <DialogClose asChild>
+                                <Link href="/">
+                                    <Button variant="outline" className="w-full">Home</Button>
+                                </Link>
+                            </DialogClose>
+                            <DialogClose asChild>
+                                <Link href="/software">
+                                    <Button variant="outline" className="w-full">Software</Button>
+                                </Link>
+                            </DialogClose>
+                            <DialogClose asChild>
+                                <Link href="/automation">
+                                    <Button variant="outline" className="w-full">Automation</Button>
+                                </Link>
+                            </DialogClose>
+                            <DialogClose asChild>
+                                <Link href="/blog">
+                                    <Button variant="outline" className="w-full">Blog</Button>
+                                </Link>
+                            </DialogClose>
+                            <DialogClose asChild>
+                                <Link href="/projects">
+                                    <Button variant="outline" className="w-full">Projects</Button>
+                                </Link>
+                            </DialogClose>
+                        </div>
+                    </SheetContent>
+                </Dialog>
+               
+                <div className="flex items-center gap-10 max-[825px]:hidden">
+                    <Link href="/">
+                        <Button variant="ghost">About</Button>
                     </Link>
-                </button>
-                <button>
-                    <Link href={"booking"}>
-                        <p className='text-xl text-yellow-800 hover:scale-110'>Booking now</p>
+                    <Link href="/booking">
+                        <Button variant="ghost">Book </Button>
                     </Link>
-                </button>
-                <button>
-                    <Link href={"pricePage"}>
-                        <p className='text-xl text-yellow-800 hover:scale-110'>Price page</p>
-                    </Link>                
-                        
-                </button>
-                <button> 
-                    <Link href="/#contact"> 
-                        <p className='text-xl text-yellow-800 hover:scale-110'>Contact us</p>
-                    </Link>               
-                </button>
-                {/* <button>                
-                        <p className='text-xl text-yellow-800 hover:scale-110'>Top</p>
-                </button> */}
-            </div>
-            
-            {/* mobile menu for responsive, displayed on small scream */}
-            <div
-                className={`fixed top-0 right-0 w-64 h-full z-40 bg-white shadow-lg transform ${
-                    isOpen ? 'translate-x-0' : 'translate-x-full' 
-                    // a ternary operator used to conditionally apply different Tailwind classes
-                    //If isOpen is true, the menu will have the class 'translate-x-0' (visible)
-                    //If isOpen is false, the menu will have the class 'translate-x-full' (hidden)
-                } transition-transform duration-300 ease-in-out`}>
-                <div className='flex flex-col p-4 space-y-6'>
-                    <Link href={"/"} onClick={() => setIsOpen(false)}>
-                        <p className='text-xl text-yellow-800 hover:scale-110'>Home</p>
+                    <Link href="/blog">
+                        <Button variant="ghost">Services</Button>
                     </Link>
-                    <Link href={"bookingPage"} onClick={() => setIsOpen(false)}>
-                        <p className='text-xl text-yellow-800 hover:scale-110'>Booking now</p>
-                    </Link>
-                    <Link href={"pricePage"} onClick={() => setIsOpen(false)}>
-                        <p className='text-xl text-yellow-800 hover:scale-110'>Price page</p>
-                    </Link>
-                    <Link href="/#contact" onClick={() => setIsOpen(false)}>
-                        <p className='text-xl text-yellow-800 hover:scale-110'>Contact us</p>
+                    <Link href="/pricePage">
+                        <Button variant="ghost">Prices</Button>
                     </Link>
                 </div>
             </div>
-
-            {/* close the menu*/}
-            {isOpen && (
-                <div
-                    className='fixed inset-0 bg-black opacity-50 z-30'
-                    onClick={() => setIsOpen(false)}
-                />
-            )}
-            {/* logo for toggling the mobile menu */}
-            <div className='md:hidden'>
-                <button onClick={toggleMenu}>
-                    <svg
-                        className='w-8 h-8 text-yellow-800'
-                        fill='none'
-                        stroke='currentColor'
-                        viewBox='0 0 24 24'
-                        xmlns='http://www.w3.org/2000/svg'>
-                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h16m-7 6h7' />
-                    </svg>
-                </button>
-                
-            </div>
         </div>
-    );
 
+    )
 }
+
+const ListItem = React.forwardRef<
+    React.ElementRef<"a">,
+    React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+    return (
+        <li>
+            <NavigationMenuLink asChild>
+                <a
+                    ref={ref}
+                    className={cn(
+                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                        className
+                    )}
+                    {...props}
+                >
+                    <div className="text-sm font-medium leading-none">{title}</div>
+                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                        {children}
+                    </p>
+                </a>
+            </NavigationMenuLink>
+        </li>
+    )
+})
+ListItem.displayName = "ListItem"

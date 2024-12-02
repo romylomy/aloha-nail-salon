@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Section, Container } from "@/components/craft";
 
 export default function NailGallery() {
  
@@ -38,7 +39,9 @@ export default function NailGallery() {
   ];
 
   return (
-    <div className="container mx-auto py-10">
+    <Section>
+      <Container>
+      <div className="container mx-auto py-10">
       <h2 className="text-center text-black text-4xl font-bold mb-8">Nail Design Gallery</h2>
       <div className="flex flex-wrap justify-between">
         {nailDesigns.map((design, index) => (
@@ -59,5 +62,7 @@ export default function NailGallery() {
         ))}
       </div>
     </div>
+      </Container>
+    </Section>
   );
 }

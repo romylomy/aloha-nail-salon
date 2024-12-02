@@ -27,7 +27,6 @@ const steps = [
     route: 'step-three',
     link: AddDealRoutes.CONTACT_INFO,
   },
-  { title: 'Review', route: 'review', link: AddDealRoutes.REVIEW_DEAL },
 ];
 
 export default function StepNavigation() {
@@ -54,7 +53,7 @@ export default function StepNavigation() {
       </Link>
 
       {/* list of form steps */}
-      <div className="relative flex flex-row justify-between lg:flex-col lg:justify-start lg:gap-8">
+      <div className="relative flex flex-row justify-between ">
         {steps.map((step, i) => (
           <Link
             href={step.link}
@@ -86,7 +85,7 @@ export default function StepNavigation() {
                 }
               )}
             >
-              {step.title}
+           -----
             </span>
           </Link>
         ))}

@@ -6,7 +6,7 @@ import { IAppointment } from "@/interfaces/index";
 import { getAppointmentById } from "@/server-actions/appointments";
 import React, { useEffect, useState } from "react";
 import { message } from "antd";
-import AppointmentReceipt from "@/components/confirmation-receipt";
+import AppointmentReceipt from "@/components/appointmentConfirmation";
 
 function AppointmentConfirmation() {
   const searchParams = useSearchParams();
@@ -43,9 +43,9 @@ function AppointmentConfirmation() {
   }, [appointmentId]); // Trigger on appointmentId change
 
   return (
-    <div className="p-5">
+    <div >
+     
       <div className="justify-center flex ">
-        <PageTitle title="Appointment Confirmation" />
       </div>
       {loading ? (
         <p>Loading...</p>

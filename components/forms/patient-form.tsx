@@ -32,7 +32,7 @@ const PatientForm: React.FC<PatientFormProps> = ({ form }) => {
           // Specifies that this is a regular input field.
           control={form.control} 
           // Passes the form's control object to manage the field's state and validation.
-          name="customerName" 
+          name="name" 
           // The name of the form field, used to bind the input to the form's state.
           label="Full name" 
           // The label that appears above the input field.

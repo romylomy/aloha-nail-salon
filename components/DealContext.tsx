@@ -21,6 +21,7 @@ const defaultDeal: NewDealInitialValuesType = {
   customerName: '',
   phone: '',
   email: '',
+  cost:''
 };
 
 type AddDealContextType = {

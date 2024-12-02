@@ -24,10 +24,11 @@ export const UserFormValidation = z.object({
 // Zod schema definition for the availability form
 export const selectServicesSchema = z.object({
   services: z.array(z.string()).nonempty("Please select at least one service."),
+  cost:z.number()
 });
 
 export const ClientFormValidation = z.object({
-  customerName: z
+  name: z
       .string()
       .min(2, "Name must be at least 2 characters")
       .max(50, "Name must be at most 50 characters"),
@@ -68,6 +69,9 @@ export const newDealInitialValuesSchema = z.object({
   customerName: z.string().optional(),
   phone: z.string().optional(),
   email: z.string().optional(),
+  taxes:z.number().optional(),
+  subtotal:z.number().optional(),
+  cost: z.number().optional(),
 });
 
 // Use Zod's `infer` method to create TypeScript types from the schemas
