@@ -1,12 +1,11 @@
 "use client"
-import React, { useState } from 'react';
-import Navbar from '@/components/navbar';
+import React, { useState } from "react";
+import Navbar from "@/components/navbar";
 
 type ServiceItem = {
   name: string;
-  price: number;
+  price: number | string;
 };
-
 
 const PricePage = () => {
   const [isCalculationMode, setIsCalculationMode] = useState(false);
@@ -31,12 +30,13 @@ const PricePage = () => {
 
   const addService = (service: ServiceItem) => {
     setSelectedServices([...selectedServices, service]);
-    setTotalCost(totalCost + service.price);
+    setTotalCost(totalCost + Number(service.price));
   };
+
   const removeService = (index: number) => {
     const service = selectedServices[index];
     setSelectedServices(selectedServices.filter((_, i) => i !== index));
-    setTotalCost(totalCost - service.price);
+    setTotalCost(totalCost - Number(service.price));
   };
 
   const clearList = () => {
@@ -45,33 +45,36 @@ const PricePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-center" style={{ backgroundImage: 'url("/bg1.jpg")' }}>
+    <div className="min-h-screen bg-center" style={{ backgroundColor: "#F9F9F9" }}>
       <Navbar />
-      <div className="container mx-auto px-4 py-36">
-        <h1 className="text-4xl font-bold text-center mb-12">Our Services</h1>
-        <div className='flex justify-end'>
+      <div className="container mx-auto px-6 py-40">
+        <h1 className="text-4xl font-bold text-center mb-16 text-[#D4A373]">Our Services</h1>
+        <div className="flex justify-end mb-8">
           <button
             onClick={toggleCalculationMode}
-            className="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-md mb-8 hover:bg-yellow-600 transition duration-300"
+            className="px-6 py-3 bg-[#FBCC86] text-white font-semibold rounded-md hover:bg-[#C5A173] transition duration-300"
           >
             {isCalculationMode ? "Leave" : "Estimated price"}
           </button>
         </div>
-        
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {services.map((serviceCategory) => (
-            <div key={serviceCategory.category} className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow">
-              <h2 className="text-xl font-semibold text-yellow-600 mb-4">{serviceCategory.category}</h2>
-              <ul className="space-y-2 text-black text-lg">
-                {serviceCategory.items.map((item) => (
-                  <li key={item.name} className="flex justify-between items-center">
+            <div key={serviceCategory.category} className="bg-white shadow-lg rounded-lg p-8 hover:shadow-xl transition-shadow">
+              <h2 className="text-xl font-semibold text-[#D4B483] mb-4 border-b-2 border-[#D4B483] pb-2">
+                {serviceCategory.category}
+              </h2>
+              <ul className="space-y-2 text-[#5b5b5b] text-lg">
+                {serviceCategory.items.map((item, i) => (
+                  <li key={i} className="flex justify-between items-center">
                     <span className="flex-1">{item.name}</span>
-                    <span className="min-w-[60px] text-right">${item.price}</span>
+                    <span className="min-w-[60px] text-right font-bold text-[#4A675A]">
+                      {item.price}
+                    </span>
 
                     {isCalculationMode && (
                       <button
-                        className="text-sm text-yellow-800 ml-4 hover:scale-110"
+                        className="text-sm text-[#4A675A] ml-4 hover:scale-110"
                         onClick={() => addService(item)}
                       >
                         Add
@@ -80,19 +83,20 @@ const PricePage = () => {
                   </li>
                 ))}
               </ul>
-
             </div>
           ))}
         </div>
 
         {isCalculationMode && (
-          <div className="bg-white shadow-lg rounded-lg p-6 mt-12">
-            <h2 className="text-2xl font-semibold mb-4">List</h2>
-            <ul className="space-y-2 text-lg">
+          <div className="bg-white shadow-lg rounded-lg p-8 mt-16">
+            <h2 className="text-2xl font-semibold mb-6 text-[#D4A373]">Selected Services</h2>
+            <ul className="space-y-2 text-lg text-[#5b5b5b]">
               {selectedServices.map((service, index) => (
                 <li key={index} className="flex justify-between">
                   <span className="flex-1">{service.name}</span>
-                  <span className="min-w-[60px] text-right">${service.price}</span>
+                  <span className="min-w-[60px] text-right font-bold text-[#4A675A]">
+                    {service.price}
+                  </span>
 
                   <button
                     className="text-sm text-red-500 ml-4"
@@ -103,11 +107,10 @@ const PricePage = () => {
                 </li>
               ))}
             </ul>
-            <h3 className="text-xl font-bold mt-4">Total: ${totalCost}</h3>
-            {/* Clear Button */}
+            <h3 className="text-xl font-bold mt-6 text-[#4A675A]">Total: ${totalCost}</h3>
             <button
               onClick={clearList}
-              className="mt-4 px-6 py-2 bg-yellow-400 text-white font-semibold rounded-md hover:bg-yellow-600 transition duration-300"
+              className="mt-6 px-6 py-3 bg-[#FBCC86] text-white font-semibold rounded-md hover:bg-[#C5A173] transition duration-300"
             >
               Clear
             </button>

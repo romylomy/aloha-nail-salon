@@ -12,6 +12,9 @@ import { Button } from "@/components/ui/button";
 import { checkStaffAvailability } from "@/server-actions/appointments";
 import AvailableStaff from "@/components/available-staff";
 import SelectedDetails from "@/components/SelectedDetails"; // Import the new component
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export default function Home() {
   const { updatedNewDealDetails, newDealData } = useAddDealContext();

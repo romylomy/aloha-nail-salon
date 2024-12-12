@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils"
 import { BookOpen, MenuIcon } from 'lucide-react'
 import Link from "next/link"
-import * as React from "react"
+import React, {useState} from "react"
 import { Dialog, DialogClose } from "./ui/dialog"
 import { Button } from "./ui/button"
 import { NavigationMenu, NavigationMenuLink, NavigationMenuList } from "./ui/navigation-menu"
@@ -11,7 +11,11 @@ import { SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger }
 
 
 export default function NavBar() {
+    
+    const[isDrop, setDrop] = useState(false);
 
+    const toggleDrop = () => setDrop(true);
+    const hideDrop = () => setDrop(false);
     return (
         <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
             <div className="flex justify-end md:w-[1550px] w-full border dark:border-zinc-900 dark:bg-black relative backdrop-filter backdrop-blur-lg  border-black border-opacity-20 rounded-xl p-2 ">
@@ -63,9 +67,33 @@ export default function NavBar() {
                     <Link href="/booking">
                         <Button variant="ghost">Book </Button>
                     </Link>
-                    <Link href="/blog">
-                        <Button variant="ghost">Services</Button>
-                    </Link>
+                    <div className="relative" onMouseEnter={toggleDrop}>
+                        <Link href="/service">
+                            <Button variant="ghost">Services</Button>
+                        </Link>
+                        {isDrop && (
+                            <div className="absolute left-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-black dark:border-zinc-800" onMouseLeave={hideDrop}>
+                                <Link href="/service">
+                                    <Button variant="ghost" className="block text-left">
+                                        Manicure
+                                    </Button>
+                                    </Link>
+                                    <Link href="/service/pedicure">
+                                    <Button variant="ghost" className="block text-left">
+                                        Pedicure
+                                    </Button>
+                                    </Link>
+                                    <Link href="/service/facial">
+                                    <Button variant="ghost" className="block text-left">
+                                        Facial
+                                    </Button>
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                        
+                    
+                    
                     <Link href="/pricePage">
                         <Button variant="ghost">Prices</Button>
                     </Link>
